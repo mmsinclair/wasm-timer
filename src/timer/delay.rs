@@ -147,6 +147,11 @@ impl Delay {
 
         Ok(())
     }
+
+    #[inline]
+    pub fn deadline(&self) -> Instant {
+        fires_at(self)
+    }
 }
 
 #[inline]
