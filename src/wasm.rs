@@ -25,6 +25,17 @@ use std::cmp::{Eq, PartialEq, Ord, PartialOrd, Ordering};
 use std::ops::{Add, Sub, AddAssign, SubAssign};
 use std::time::Duration;
 
+#[cfg(all(target_arch = "wasm32", target_os = "unknown"))]
+use wasm_bindgen::prelude::wasm_bindgen;
+
+#[cfg(all(target_arch = "wasm32", target_os = "unknown"))]
+#[wasm_bindgen]
+extern "C" {
+    #[no_mangle]
+    #[used]
+    static performance:web_sys::Performance;
+}
+
 #[derive(Debug, Copy, Clone)]
 pub struct Instant {
     /// Unit is milliseconds.
@@ -55,10 +66,8 @@ impl Ord for Instant {
 
 impl Instant {
     pub fn now() -> Instant {
-        let val = web_sys::self_()
-            .expect("not in a browser")
-            .performance()
-            .expect("performance object not available")
+        let val =
+            performance
             .now();
         Instant { inner: val }
     }
