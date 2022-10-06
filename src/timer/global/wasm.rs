@@ -10,6 +10,15 @@ use wasm_bindgen::{JsCast, closure::Closure};
 
 use crate::{Instant, Timer, TimerHandle};
 
+use wasm_bindgen::prelude::wasm_bindgen;
+
+#[wasm_bindgen]
+extern "C" {
+    #[no_mangle]
+    #[used]
+    static self_:web_sys::WorkerGlobalScope;
+}
+
 /// Starts a background task, creates a `Timer`, and returns a handle to it.
 ///
 /// > **Note**: Contrary to the original `futures-timer` crate, we don't have
@@ -25,7 +34,7 @@ pub(crate) fn run() -> TimerHandle {
 /// Calls `Window::setTimeout` with the given `Duration`. The callback wakes up the timer and
 /// processes everything.
 fn schedule_callback(timer: Arc<Mutex<Timer>>, when: Duration) {
-    let window = web_sys::window().expect("Unable to access Window");
+    let window = &self_;
     let _ = window.set_timeout_with_callback_and_timeout_and_arguments_0(
         &Closure::once_into_js(move || {
             let mut timer_lock = timer.lock();
