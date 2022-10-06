@@ -9,7 +9,7 @@ repository = "https://github.com/tomaka/wasm-timer"
 
 [dependencies]
 futures = "0.3.1"
-parking_lot = "0.12"
+parking_lot = "0.11"
 pin-utils = "0.1.0"
 
 [target.'cfg(all(target_arch = "wasm32", target_os = "unknown"))'.dependencies]
@@ -17,6 +17,9 @@ js-sys = "0.3.31"
 wasm-bindgen = "0.2.37"
 wasm-bindgen-futures = "0.4.4"
 web-sys = { version = "0.3.31", features = ["Performance", "Window", "WorkerGlobalScope"] }
+
+[target."cfg(all(target_arch = \"wasm32\", target_os = \"unknown\"))".dependencies.parking_lot]
+features = ["wasm-bindgen"]
 
 [dev-dependencies]
 async-std = "1.0"
