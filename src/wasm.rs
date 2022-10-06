@@ -55,7 +55,7 @@ impl Ord for Instant {
 
 impl Instant {
     pub fn now() -> Instant {
-        let val = web_sys::window()
+        let val = web_sys::self_()
             .expect("not in a browser")
             .performance()
             .expect("performance object not available")
