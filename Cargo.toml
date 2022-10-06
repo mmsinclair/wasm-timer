@@ -14,7 +14,7 @@ authors = ["Pierre Krieger <pierre.krieger1708@gmail.com>"]
 description = "Abstraction over std::time::Instant and futures-timer that works on WASM"
 edition = "2018"
 license = "MIT"
-name = "fluvio-wasm-timer"
+name = "wasm-timer"
 repository = "https://github.com/tomaka/wasm-timer"
 version = "0.2.5"
 [target."cfg(all(target_arch = \"wasm32\", target_os = \"unknown\"))".dependencies.js-sys]
