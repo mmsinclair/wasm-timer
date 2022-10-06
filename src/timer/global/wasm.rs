@@ -14,9 +14,11 @@ use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen]
 extern "C" {
-    #[no_mangle]
-    #[used]
-    static self_:web_sys::WorkerGlobalScope;
+    #[wasm_bindgen(js_name = setTimeout)]
+    pub fn set_timeout_with_callback_and_timeout_and_arguments_0(
+        handler: &::js_sys::Function,
+        timeout: i32,
+    ) -> i32;
 }
 
 /// Starts a background task, creates a `Timer`, and returns a handle to it.
@@ -34,8 +36,7 @@ pub(crate) fn run() -> TimerHandle {
 /// Calls `Window::setTimeout` with the given `Duration`. The callback wakes up the timer and
 /// processes everything.
 fn schedule_callback(timer: Arc<Mutex<Timer>>, when: Duration) {
-    let window = &self_;
-    let _ = window.set_timeout_with_callback_and_timeout_and_arguments_0(
+    let _ = set_timeout_with_callback_and_timeout_and_arguments_0(
         &Closure::once_into_js(move || {
             let mut timer_lock = timer.lock();
 
@@ -72,7 +73,7 @@ fn schedule_callback(timer: Arc<Mutex<Timer>>, when: Duration) {
 
         }).unchecked_ref(),
         i32::try_from(when.as_millis()).unwrap_or(0)
-    ).unwrap();
+    );
 }
 
 struct Waker {
