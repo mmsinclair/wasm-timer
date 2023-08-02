@@ -2,7 +2,7 @@
 version = "0.3.1"
 
 [dependencies.parking_lot]
-version = "=0.12"
+version = "=0.12.1"
 
 [dependencies.pin-utils]
 version = "0.1.0"
@@ -19,10 +19,6 @@ repository = "https://github.com/tomaka/wasm-timer"
 version = "0.2.5"
 [target."cfg(all(target_arch = \"wasm32\", target_os = \"unknown\"))".dependencies.js-sys]
 version = "0.3.31"
-
-[target."cfg(all(target_arch = \"wasm32\", target_os = \"unknown\"))".dependencies.parking_lot]
-features = ["wasm-bindgen"]
-version = "0.11"
 
 [target."cfg(all(target_arch = \"wasm32\", target_os = \"unknown\"))".dependencies.wasm-bindgen]
 version = "0.2.37"
